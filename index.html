@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<link rel="stylesheet" href="style.css"></link>
+		<script type="text/javascript" src="jquery.min.js"></script>
+		<script src="script.js"></script>
+	</head>
+	<body>
+		<header><div class="new"><input type="text" id="newcity"></input></div><a href="#"><div id="addcity_btn">+</div></a></header>
+		
+		<div class="container">
+		</div>
+		<div id="template" hidden="true">
+		<div class = "city" id = "{{city}}" style="background-image:url({{image}});" draggable = "true" ondragstart="drag(event);">
+			
+			<div class="place">{{place}} <sub><p class="lat"> Lat: {{lat}}  </p><p class="lng">  Lng : {{lng}}</p></sub></div>
+			<div class="date">{{date}} </div>
+			<div class="status">{{status}} </div>
+			<div class="temp_div">
+				<div class="temprature"><div class="icon"><img src="{{icon}}"></img></div>
+				{{tem}}<sup>o</sup>C</div>
+				<div class="details">
+					<div>Pressure :<span> {{pre}} </span></div>
+					<div>Humidity :<span> {{hum}} </span></div>
+					<div>Wind :<span> {{wind}} </span></div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+
+		<footer ondrop="drop(event)" ondragover="allowDrop(event)"><div class="msg" hidden="true" >Dragg Here to move to Trash</div><img id="bin" src="bin.png"></img></footer>
+		
+	</body>
+</html>
