@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<link rel="stylesheet" href="style.css"></link>
-		<script type="text/javascript" src="jquery.min.js"></script>
-		<script src="script.js"></script>
+		<link rel="stylesheet" href="css/style.css"></link>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script src="js/script.js"></script>
 	</head>
 	<body>
-		<header><div class="new"><input type="text" id="newcity" placeholder="Enter new city"></input></div><a href="#"><div id="addcity_btn">+</div></a></header>
+		<header><div class="new"><input type="text" id="newcity" placeholder="Enter new city"></input></div><a href="#"><div id="addcity_btn">+</div></a><span id="message"></span></header>
 		
 		<div class="container">
 		</div>
 		<div id="template" hidden="true">
-		<div class = "city" id = "{{city}}" style="background-image:url({{image}});" draggable = "true" ondragstart="drag(event);">
+		<div class = "city" id = "{{city}}" style="background-image:url(images/{{image}});" draggable = "true" ondragstart="drag(event);">
 			
 			<div class="place">{{place}} <sub><p class="lat"> Lat: {{lat}}  </p><p class="lng">  Lng : {{lng}}</p></sub></div>
 			<div class="date">{{date}} </div>
@@ -29,7 +29,7 @@
 		</div>
 
 
-		<footer ondrop="drop(event)" ondragover="allowDrop(event)"><div class="msg" hidden="true" >Dragg Here to move to Trash</div><img id="bin" src="bin.png"></img></footer>
+		<footer ondrop="drop(event)" ondragover="allowDrop(event)"><div class="msg" hidden="true" >Dragg Here to move to Trash</div><img id="bin" src="images/bin.png"></img></footer>
 		
 	</body>
 </html>
