@@ -3,10 +3,6 @@
 count = 0;
 var color = 0;
 function display(json,c){
-	console.log(json);
-	json = json ;
-	
-
 		var template = $("#template").html();
 		template = template.replace('{{city}}',c);
 		template = template.replace("{{place}}",json['name']);
@@ -25,25 +21,18 @@ function display(json,c){
 		template = template.replace("{{lng}}",json['coord']['lon']);
 		var container = $(".container").html();
 		$(".container").html(container+template);
-		
-	
-	
-
-
 }
+
 var lat,lon;
 function getLatLon(city)
 {
 	
-	$.ajax({
-  url: "http://maps.googleapis.com/maps/api/geocode/json?address="+city+"&sensor=false",async : false,
-  type: "GET",
-  success: function(res){
-  	console.log(res);
-     lat = res.results[0]['geometry']['location']['lat'];
-     lon = res.results[0]['geometry']['location']['lng'];
-  }
-});
+	$.ajax({url: "http://maps.googleapis.com/maps/api/geocode/json?address="+city+"&sensor=false",async : false,type: "GET",success: function(res){
+  		console.log(res);
+     	lat = res.results[0]['geometry']['location']['lat'];
+     	lon = res.results[0]['geometry']['location']['lng'];
+  		}
+	});
 	
 }
 function getWeather(c)
@@ -52,7 +41,7 @@ function getWeather(c)
 	console.log("lat,lon"+lat,lon);
 	$.ajax({url : "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=a0ce14bfbab578625f9e7c2e37cc43f1",async : true, success: function(response){
 		display(response,c);
-		$('#'+c).scrollTop(0);
+		
 		//clearInterval(timer);
 	} });
 }
@@ -89,14 +78,11 @@ function showWeather()
 	console.log("loading...");
 	loadcities();
 	console.log(cities);
-
-		for(var c in cities)
+	for(var c in cities)
 		{
 			console.log("city======"+cities[c]);
 			getWeather(cities[c]);
 		}
-	
-
 }
 function message(msg)
 {
@@ -104,8 +90,6 @@ function message(msg)
 	$('#message').css("color","red");
 	$('#message').css("border","1px solid red");
 	$('#message').css("background-color","white");
-	
-	
 }
 function addNewCity(new_city)
 {
@@ -113,21 +97,21 @@ function addNewCity(new_city)
 	console.log("flag for city"+new_city in cities);
 
 	if(new_city && cities.indexOf(new_city) > -1)
-			{
-				message("city already added");
-				 $('#newcity').val("");
-				return;
-			}
-			else if(new_city)
-			{
-				localStorage.setItem("city"+cities.length,new_city);
-				localStorage.setItem("city_count",city_count+1);
-				$('#newcity').val("");
-				console.log("city added");
-				getWeather(new_city);
-				return;
-			}
-			message('enter city name');
+		{
+			message("city already added");
+			$('#newcity').val("");
+			return;
+		}
+	else if(new_city)
+	{
+		localStorage.setItem("city"+cities.length,new_city);
+		localStorage.setItem("city_count",city_count+1);
+		$('#newcity').val("");
+		console.log("city added");
+		getWeather(new_city);
+		return;
+	}
+	message('enter city name');
 
 }
 function addCity(event)
@@ -135,15 +119,12 @@ function addCity(event)
 	$('#message').html("");
 	if(event.type == 'click')
 	{
-		addNewCity($('#newcity').val());
-		
+		addNewCity($('#newcity').val());		
 	}
 	else if(event.keyCode == 13)
 	{
 		addNewCity(event.target.value);
-	}
-
-		
+	}	
 		
 }
 
@@ -159,10 +140,7 @@ $(document).ready(function(){
 	$('footer').on('hover',function(){
 		$('.msg').show();
 	});
-	console.log("body background");
 	var bac = "url(images/bac"+Math.floor((Math.random() * 3) + 1)+".jpg)";
-	console.log(bac);		
-
 	$('body').css('background-image',bac);
 	showWeather();
 		
@@ -170,11 +148,12 @@ $(document).ready(function(){
 });
 
 function drag(event)
-	{
-		event.dataTransfer.setData("text",event.target.id);
-		console.log("dragging");
-	}
-function drop(event) {
+{
+	event.dataTransfer.setData("text",event.target.id);
+	console.log("dragging");
+}
+function drop(event) 
+{
 	console.log("droping");
     event.preventDefault();
     var data = event.dataTransfer.getData("text");
@@ -183,17 +162,17 @@ function drop(event) {
     {
     	var city = localStorage.getItem('city'+i);
     	
-    	if(city == data){
+    	if(city == data)
+    	{
     		delete window.localStorage['city'+i];
     		localStorage.setItem("city_count",city_count-1);
     	}
     }
     
     
-    
-	console.log("dropped");
-}
-function allowDrop(event) {
+ }
+function allowDrop(event) 
+{
     event.preventDefault();
 }
 	
